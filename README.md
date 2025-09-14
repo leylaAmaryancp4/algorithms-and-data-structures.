@@ -68,8 +68,6 @@ Suppose we have:
 
 arr = [4, 2, 2, 8, 3, 3, 1]
 
-yaml
-Copy code
 
  **Step 1:** Count occurrences  
   `count = [1, 0, 2, 2, 1, 0, 0, 1]` (for numbers 1–8)
