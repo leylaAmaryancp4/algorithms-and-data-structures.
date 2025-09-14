@@ -90,6 +90,16 @@ Copy code
    **Space Complexity:** `O(n + k)` (extra space for count array)
  **Stable:** (if implemented properly — place elements in output array from right to left)
 
+## Efficiency vs. Comparison Sorts
+
+- Counting Sort is **faster** than comparison-based algorithms (`O(n log n)`) when:
+- The **range `k` is small** relative to `n`.  
+- Input data is **integers (or discrete values)** that can be mapped to indices.  
+
+- It is **less efficient** when:
+- `k` is very large (e.g., sorting numbers between 1 and 1 billion with only a few elements).  
+- Memory usage becomes impractical due to large count arrays.
+
 
 
 ##  When to Use
@@ -103,33 +113,40 @@ Not efficient for data with a huge range (e.g., numbers up to 1 billion with onl
 
 ##  Quick Example Code (JavaScript)
 
-```js
 function countingSort(arr) {
   if (arr.length === 0) return arr;
 
+  // Step 1: Find the min and max values
   let min = Math.min(...arr);
   let max = Math.max(...arr);
 
+  // Step 2: Initialize count array
+  // We shift by 'min' to handle negative numbers
   let count = new Array(max - min + 1).fill(0);
 
-  // Count occurrences
-  for (let num of arr) count[num - min]++;
+  // Step 3: Count occurrences of each element
+  for (let num of arr) {
+    count[num - min]++;
+  }
 
-  // Prefix sum
-  for (let i = 1; i < count.length; i++) count[i] += count[i - 1];
+  // Step 4: Build prefix sum (cumulative count)
+  // This tells us the "final position range" for each number in the sorted array
+  for (let i = 1; i < count.length; i++) {
+    count[i] += count[i - 1];
+  }
 
+  // Step 5: Build output array (stable placement)
+  // Iterate from right to left so identical numbers keep their original order
   let output = new Array(arr.length);
-  
-  // Place elements (right to left for stability)
   for (let i = arr.length - 1; i >= 0; i--) {
-    output[count[arr[i] - min] - 1] = arr[i];
-    count[arr[i] - min]--;
+    let num = arr[i];
+    output[count[num - min] - 1] = num; // Place element at correct index
+    count[num - min]--; // Decrement count to handle duplicates
   }
 
   return output;
 }
 
-console.log(countingSort([4, 2, 2, 8, 3, 3, 1]));
-// Output: [1, 2, 2, 3, 3, 4, 8]
-
-
+//  Example usage
+console.log(countingSort([4, 2, 2, 8, 3, 3, 1]));   // [1, 2, 2, 3, 3, 4, 8]
+console.log(countingSort([-5, -10, 0, -3, 8, 5, -1])); // [-10, -5, -3, -1, 0, 5, 8]
