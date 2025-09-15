@@ -52,7 +52,7 @@ then using this information to place elements in their correct sorted positions.
 
 
 
-## 📌 How It Works
+##  How It Works
 
 1. Find the **minimum** and **maximum** elements in the array.
 2. Create a **count array** to store the frequency of each element.
