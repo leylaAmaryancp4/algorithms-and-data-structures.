@@ -1,0 +1,43 @@
+*
+body {
+  display: flex;
+  place-items: center;
+  align-items: center;
+  
+  background: url(./background.jpg.jpg);
+  background-size: 100%;
+  height: 100vh;
+}
+
+#root {
+  padding: 12px;
+}
+
+.sq {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.piece {
+  max-width: 56px;
+  max-height: 56px;
+  user-select: none;
+  pointer-events: none;
+}
+.board-container {
+  display: flex;
+  justify-content: center;  
+  align-items: center;      
+  height: 100vh;            
+}
+
+#board {
+  width: 512px;   
+  height: 512px;
+}
+
